@@ -1,0 +1,11 @@
+name: ShopKeeperV2
+version: '1.0'
+main: org.plugins.shopkeeper.Main
+api-version: '1.21'
+prefix: ShopKeeper
+authors: [ TableIkea_ ]
+website: https://elenox.net
+commands:
+  shopkeeper:
+    description: manage shopKeeper plugin
+    permission: op
