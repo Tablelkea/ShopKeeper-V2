@@ -1,19 +1,16 @@
 package org.plugins.shopkeeper.commands.subCommands;
 
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
-import org.bukkit.inventory.MerchantRecipe;
 import org.plugins.shopkeeper.commands.ShopKeeper;
+import org.plugins.shopkeeper.models.Trade;
 import org.plugins.shopkeeper.utils.CustomMessages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MoveSubCommand {
 
     private static Villager globalVillager;
-    public static List<MerchantRecipe> globalVillagerRecipes = new ArrayList<>();
 
     public static void execute(Player player, String parametre){
         if(parametre.equalsIgnoreCase("get")){
@@ -25,11 +22,10 @@ public class MoveSubCommand {
                 player.sendMessage(CustomMessages.errorCaptureVillager);
             }
         }else if(parametre.equalsIgnoreCase("set")){
-            World world = player.getWorld();
-            world.spawn(player.getLocation(), Villager.class, villager ->{
-                villager.setRecipes(globalVillagerRecipes);
+            player.getWorld().spawn(player.getLocation(), Villager.class, villager ->{
                 villager.setAI(globalVillager.hasAI());
                 villager.setProfession(globalVillager.getProfession());
+                villager.setRecipes(Trade.getRecipeFromVillager(globalVillager));
             });
             player.sendMessage(CustomMessages.successMoveVillager);
         }else{

@@ -10,7 +10,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.plugins.shopkeeper.commands.subCommands.ConfigSubCommand;
 import org.plugins.shopkeeper.commands.subCommands.MoveSubCommand;
 import org.plugins.shopkeeper.models.Trade;
@@ -54,7 +53,6 @@ public class InventoryEvent implements Listener {
                             }
                         }
                         villager.setRecipes(recipes);
-                        MoveSubCommand.globalVillagerRecipes = recipes;
                         player.sendMessage(CustomMessages.succesTradeLoad);
                     }
 
@@ -75,7 +73,6 @@ public class InventoryEvent implements Listener {
                         ConfigSubCommand.professionSelect.clear();
                         for (Map.Entry<Villager.Profession, Material> entry : ConfigSubCommand.WORKSTATIONS.entrySet()) {
                             ItemStack item = new ItemStack(entry.getValue());
-                            ItemMeta meta = item.getItemMeta();
 
                             ConfigSubCommand.professionSelect.addItem(item);
                         }
@@ -142,10 +139,7 @@ public class InventoryEvent implements Listener {
                         villager.setProfession(Villager.Profession.WEAPONSMITH);
                         villager.setRecipes(List.of());
                     }
-                    default -> {
-                        player.sendMessage("§cBloc non reconnu.");
-                        return;
-                    }
+                    default -> player.sendMessage("§cBloc non reconnu.");
                 }
             }
         }
